@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Matrix</title>
+<!--learned to do because i was curious-->
+<body>
+
+<!-- Create a canvas element to draw on -->
+<canvas id="matrix-canvas"></canvas>
+
+<script>
+  // Get the canvas element and its 2D context
+  var canvas = document.getElementById("matrix-canvas");
+  var ctx = canvas.getContext("2d");
+
+  // Set the canvas size to match the screen
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  // Set the font size and style
+  var font_size = 10;
+  ctx.font = font_size + "px monospace";
+  ctx.fillStyle = "#0F0";
+
+  // Define the columns and rows for the matrix rain effect
+  var columns = Math.floor(canvas.width / font_size);
+  var rows = Math.floor(canvas.height / font_size);
+
+  // Create an array to hold the characters that will be drawn
+  var chars = [];
+  for (var i = 0; i < columns; i++) {
+    chars[i] = Math.floor(Math.random() * rows);
+  }
+
+  // Define the update function that will be called repeatedly
+  function update() {
+    // Clear the canvas
+    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Draw the characters on the canvas
+    ctx.fillStyle = "#0F0";
+    for (var i = 0; i < chars.length; i++) {
+      var char = String.fromCharCode(Math.floor(Math.random() * 128));
+      ctx.fillText(char, i * font_size, chars[i] * font_size);
+      if (chars[i] * font_size > canvas.height && Math.random() > 0.975) {
+        chars[i] = 0;
+      } else {
+        chars[i]++;
+      }
+    }
+  }
+
+  // Call the update function every 50 milliseconds
+  setInterval(update, 50);
+</script>
+
+</body>
+</html>
