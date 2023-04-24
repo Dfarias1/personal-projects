@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Play RPS</title>
+</head>
+<body>
+<h1>Let's Play Rock, Paper, Scissors!</h1>
+
+<p><b>File to edit: `main.js`</b></p>
+
+<h2>User Stories</h2>
+<ul>
+    <li>As a visitor, I expect to be asked to play a game of Rock, Paper, Scissors.</li>
+    <li>As a visitor, I expect the program to end if I click cancel.</li>
+    <li>As a visitor, when I click OK to play, I will be prompted to select a choice.</li>
+    <li>As a visitor, after I input my choice, I expect to be alerted of my choice, and the choice of the NPC.</li>
+    <li>As a visitor, I expect to see the correct result of the game.</li>
+    <li>As a visitor, I expect to be asked to play again.</li>
+</ul>
+
+<h2>New Features</h2>
+<ul>
+    <li>The user will be asked to play again at the end of every game.</li>
+    <li>Strings will be converted to one case to accurately compare string values.</li>
+</ul>
+
+<script>
+	"use strict";
+
+	let playAgain = true;
+	while (playAgain) {
+		const userResponse = confirm("Would you like to play rock, paper, scissors?");
+
+		if(!userResponse) {
+			playAgain = false;
+		} else {
+			const choices = ['rock', 'paper', 'scissors'];
+			const npcChoice = choices[Math.floor(Math.random() * choices.length)];
+			let userChoice = prompt("Please choose one of the following:\n1. Rock\n2. Paper\n3. Scissors");
+
+			userChoice = userChoice.toLowerCase();
+
+			alertChoices(userChoice, npcChoice);
+
+			if(userChoice === npcChoice) {
+				alert("Draw!");
+			} else if (userChoice === "rock" && npcChoice === "paper") {
+				alert("You lose! Paper beats Rock!");
+			} else if (userChoice === "paper" && npcChoice === "scissors") {
+				alert("You lose! Scissors beat Paper!");
+			} else if (userChoice === "scissors" && npcChoice === "rock") {
+				alert("You lose! Rock beats Scissors!");
+			} else {
+				alert("You win! " + userChoice + " beats " + npcChoice + "!");
+			}
+
+			const playAgainResponse = confirm("Would you like to play again?");
+			if (!playAgainResponse) {
+				playAgain = false;
+			}
+		}
+	}
+
+	function alertChoices(user, npc) {
+		alert("You chose: " + user);
+		alert("NPC chose: " + npc);
+	}
+</script>
+</body>
+</html>
+
+
