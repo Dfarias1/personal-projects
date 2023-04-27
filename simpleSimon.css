@@ -5,10 +5,10 @@
     margin: 10px;
     border-radius: 10px;
     opacity: 1;
-    transition: opacity 0.3s;
+    transition: opacity 0.5s;
 }
 #square1{
-    background-color: #17fcff;
+    background-color: darkblue;
 }
 #square2{
     background-color: #ff2b3c;
@@ -17,7 +17,7 @@
     background-color: #2a7b27;
 }
 #square4{
-    background-color: yellow;
+    background-color: purple;
 }
 
 .square.selected {
