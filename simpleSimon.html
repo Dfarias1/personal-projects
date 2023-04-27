@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="simpleSimon.css">
+    <title>Simple Simon</title>
+</head>
+<body>
+<div id="container">
+    <div class="square" id="square1"></div>
+    <div class="square" id="square2"></div>
+    <div class="square" id="square3"></div>
+    <div class="square" id="square4"></div>
+    <div id="score">Round: 0</div>
+    <button id="start-button" onclick="startGame()">Start Game</button>
+</div>
+<script>
+	// Game variables
+	let sequence = [];
+	let round = 0;
+	let playerSequence = [];
+	let isPlaying = false;
+
+	// DOM elements
+	const container = document.getElementById('container');
+	const squares = document.querySelectorAll('.square');
+	const score = document.getElementById('score');
+	const startButton = document.getElementById('start-button');
+
+	// Add event listeners to squares
+	squares.forEach(square => {
+		square.addEventListener('click', handleClick);
+	});
+
+	// Handle square clicks
+	function handleClick(e) {
+		if (!isPlaying) {
+			return;
+		}
+		const selectedSquare = e.target;
+		playerSequence.push(selectedSquare);
+		selectedSquare.classList.add('selected');
+		setTimeout(() => {
+			selectedSquare.classList.remove('selected');
+		}, 300);
+		checkSequence();
+	}
+
+	// Check player sequence against sequence
+	function checkSequence() {
+		const index = playerSequence.length - 1;
+		if (playerSequence[index] !== sequence[index]) {
+			endGame();
+			return;
+		}
+		if (playerSequence.length === sequence.length) {
+			round++;
+			playerSequence = [];
+			addColor();
+		}
+	}
+
+	// End the game
+	function endGame() {
+		container.classList.add('incorrect');
+		score.textContent = `Game Over - Final Score: ${round}`;
+		isPlaying = false;
+		setTimeout(() => {
+			container.classList.remove('incorrect');
+			resetGame();
+		}, 1000);
+	}
+
+	// Reset the game
+	function resetGame() {
+		sequence = [];
+		round = 0;
+		playerSequence = [];
+		startButton.disabled = false;
+	}
+
+	// Add a new color to the sequence
+	function addColor() {
+		const squaresArray = Array.from(squares);
+		const randomSquare = squaresArray[Math.floor(Math.random() * squaresArray.length)];
+		sequence.push(randomSquare);
+		setTimeout(() => {
+			randomSquare.classList.add('selected');
+			setTimeout(() => {
+				randomSquare.classList.remove('selected');
+			}, 300);
+		}, 500);
+		updateScore();
+	}
+
+	// Update the score
+	function updateScore() {
+		score.textContent = `Round: ${round}`;
+	}
+
+	// Start the game
+	function startGame() {
+		isPlaying = true;
+		startButton.disabled = true;
+		addColor();
+		updateScore();
+	}
+
+</script>
+</body>
+</html>
