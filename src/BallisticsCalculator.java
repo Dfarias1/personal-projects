@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class BallisticsCalculator {
-    private static final double GRAVITY = ;
+    private static final double GRAVITY = 9.81;
 
     public static void main(String[] args) {
         // User input
@@ -49,7 +49,7 @@ public class BallisticsCalculator {
         double temperatureInCelsius = (temperature - 32) / CELSIUS_TO_FAHRENHEIT;
         double pressure = Math.pow(1 - 0.0000068756 * altitude, 5.2561);
         double densityRatio = Math.exp((-0.000116 * altitude) / (temperatureInCelsius + 273.15 + 16));
-        double airDensity = 0.0765 * pressure / (temperatureInCelsius + 273.;
+        double airDensity = 0.0765 * pressure / (temperatureInCelsius + 273.);
         // Output
         System.out.println("Bullet Drop: " + bulletDrop + " inches");
         System.out.println("Wind Drift: " + windDrift + " inches");
@@ -99,3 +99,4 @@ public class BallisticsCalculator {
         }
         return drop;
     }
+}
